@@ -44,6 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import View.MazeDisplayer?>
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
@@ -83,12 +84,15 @@
             <Label layoutX="4.0" layoutY="28.0" text="Rows" />
             <Label layoutX="4.0" layoutY="72.0" text="Columns" />
             <Button layoutX="38.0" layoutY="109.0" mnemonicParsing="false" text="Generate Maze">
-               <font>
+                <onAction>#generateMaze</onAction>
+                <font>
                   <Font name="Apple Chancery" size="13.0" />
                </font>
             </Button>
             <Button layoutX="38.0" layoutY="154.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="104.0" text="Solve Maze" />
             <Pane layoutX="174.0" layoutY="19.0" prefHeight="340.0" prefWidth="452.0" />
+                    <MazeDisplayer fx:id="mazeDisplayer" imageFileNameWall="./Resources/Images/favpng_palm-islands-beach-clip-art.png" imageFileNamePlayer="./Resources/Images/Untitled-Artwork.png">
+                    </MazeDisplayer>
          </children>
     </AnchorPane>
   </children>
