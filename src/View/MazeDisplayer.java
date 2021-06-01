@@ -14,16 +14,37 @@ import java.io.FileNotFoundException;
 
 public class MazeDisplayer extends Canvas {
 
-    private Maze maze;
+    public Maze maze;
     private int playerRow;
     private int playerCol;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
 
+    public MazeDisplayer()
+    {
+        widthProperty().addListener(evt -> draw());
+        heightProperty().addListener(evt -> draw());
+    }
+
     public void drawMaze(Maze maze)
     {
         this.maze = maze;
         draw();
+    }
+
+    @Override
+    public boolean isResizable() {
+        return true;
+    }
+
+    @Override
+    public double prefWidth(double height) {
+        return getWidth();
+    }
+
+    @Override
+    public double prefHeight(double width) {
+        return getHeight();
     }
 
     private void draw() {

@@ -84,7 +84,7 @@
     <center>
         <Pane fx:id="mainPane" prefHeight="364.0" prefWidth="329.0" style="-fx-background-color: #57ACD3#57ACD3;" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/tree.png" onKeyPressed="#keyPressed" height="${mainPane.height}" width="${mainPane.width}" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/tree.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

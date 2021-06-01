@@ -84,12 +84,15 @@ import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -101,9 +104,14 @@ public class MyViewController implements Initializable {
     private MyViewModel viewModel;
     public TextField textField_rows;
     public TextField textField_cols;
+    public Pane mainPane;
+    @FXML
+    public GraphicsContext gc;
     public MazeDisplayer mazeDisplayer;
     public Label playerRow;
     public Label playerCol;
+    public int rows = 0;
+    public int cols = 0;
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
@@ -124,16 +132,26 @@ public class MyViewController implements Initializable {
         this.updatePlayerCol.set(updatePlayerCol + "");
     }
 
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        playerRow.textProperty().bind(updatePlayerRow);
-//        playerCol.textProperty().bind(updatePlayerCol);
+    public void initialize(URL url, ResourceBundle rb) {
+
+        mainPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
+            mazeDisplayer.setWidth(newValue.doubleValue());
+        });
+
+        mainPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
+            mazeDisplayer.setHeight(newValue.doubleValue());
+        });
     }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+////        playerRow.textProperty().bind(updatePlayerRow);
+////        playerCol.textProperty().bind(updatePlayerCol);
+//    }
 
     public void generateMaze(ActionEvent actionEvent) {
 
-        int rows = 0;
-        int cols = 0;
 
         rows = Integer.valueOf(textField_rows.getText());
         cols = Integer.valueOf(textField_cols.getText());
@@ -169,12 +187,35 @@ public class MyViewController implements Initializable {
     public void keyPressed(KeyEvent keyEvent) {
         int row = mazeDisplayer.getPlayerRow();
         int col = mazeDisplayer.getPlayerCol();
-
         switch (keyEvent.getCode()) {
-            case UP -> row -= 1;
-            case DOWN -> row += 1;
-            case RIGHT -> col += 1;
-            case LEFT -> col -= 1;
+            case UP:
+                if(row!=0)
+                {
+                    row -= 1;
+                }
+                break;
+
+            case DOWN:
+                if (row+1 < rows)
+                {
+                    row += 1;
+                }
+                break;
+
+            case RIGHT:
+                if(col+1 < cols)
+                {
+                    col += 1;
+                }
+                break;
+
+            case LEFT:
+                if (col !=0)
+                {
+                    col -= 1;
+                }
+                break;
+
         }
         setPlayerPosition(row, col);
 
@@ -182,9 +223,15 @@ public class MyViewController implements Initializable {
     }
 
     public void setPlayerPosition(int row, int col){
-        mazeDisplayer.setPlayerPosition(row, col);
-        setUpdatePlayerRow(row);
-        setUpdatePlayerCol(col);
+        rows = Integer.parseInt(textField_rows.getText());
+        cols = Integer.parseInt(textField_cols.getText());
+        if ( mazeDisplayer.maze.getMaze()[row][col]!=1)
+        {
+            mazeDisplayer.setPlayerPosition(row, col);
+            setUpdatePlayerRow(row);
+            setUpdatePlayerCol(col);
+        }
+
     }
 
     public void mouseClicked(MouseEvent mouseEvent) {
