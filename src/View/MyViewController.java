@@ -166,7 +166,7 @@ public class MyViewController implements Initializable {
         }
         Maze maze = viewModel.generateMaze(rows,cols);
         mazeDisplayer.drawMaze(maze);
-        setPlayerPosition(0, 0);
+        setPlayerPosition(maze.getStartPosition().getRowIndex(), maze.getStartPosition().getColumnIndex());
     }
 
     public void solveMaze(ActionEvent actionEvent) {
@@ -187,45 +187,69 @@ public class MyViewController implements Initializable {
     public void keyPressed(KeyEvent keyEvent) {
         int row = mazeDisplayer.getPlayerRow();
         int col = mazeDisplayer.getPlayerCol();
+        int[][] map = mazeDisplayer.maze.getMaze();
         switch (keyEvent.getCode()) {
             case UP:
-                if(row!=0)
-                {
+            case DIGIT8:
+                if (row != 0) {
                     row -= 1;
                 }
                 break;
 
             case DOWN:
-                if (row+1 < rows)
-                {
+            case DIGIT2:
+                if (row + 1 < rows) {
                     row += 1;
                 }
                 break;
 
             case RIGHT:
-                if(col+1 < cols)
-                {
+            case DIGIT6:
+                if (col + 1 < cols) {
                     col += 1;
                 }
                 break;
 
             case LEFT:
-                if (col !=0)
-                {
+            case DIGIT4:
+                if (col != 0) {
                     col -= 1;
                 }
                 break;
 
+            case DIGIT9:
+                if (row - 1 >= 0 && col + 1 < cols && map[row - 1][col + 1] == 0 && (map[row - 1][col] == 0 || map[row][col + 1] == 0)) {
+                    row -= 1;
+                    col += 1;
+                }
+                break;
+            case DIGIT3:
+                if (row + 1 < rows && col + 1 < cols && map[row + 1][col + 1] == 0 && (map[row][col + 1] == 0 || map[row + 1][col] == 0)) {
+                    row += 1;
+                    col += 1;
+                }
+                break;
+            case DIGIT7:
+                if (row - 1 >= 0 && col - 1 >= 0 && map[row - 1][col - 1] == 0 && (map[row - 1][col] == 0 || map[row][col - 1] == 0)) {
+                    row -= 1;
+                    col -= 1;
+                }
+                break;
+            case DIGIT1:
+                if (row + 1 < rows && col - 1 >= 0 && map[row + 1][col - 1] == 0 && (map[row + 1][col] == 0 || map[row][col - 1] == 0)) {
+                    row += 1;
+                    col -= 1;
+                }
+                break;
         }
         setPlayerPosition(row, col);
-
         keyEvent.consume();
     }
 
     public void setPlayerPosition(int row, int col){
         rows = Integer.parseInt(textField_rows.getText());
         cols = Integer.parseInt(textField_cols.getText());
-        if ( mazeDisplayer.maze.getMaze()[row][col]!=1)
+        if ( mazeDisplayer.maze.getMaze()[row][col] != 1)
         {
             mazeDisplayer.setPlayerPosition(row, col);
             setUpdatePlayerRow(row);
