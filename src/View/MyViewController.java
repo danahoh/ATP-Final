@@ -76,6 +76,14 @@ public class MyViewController implements Initializable, Observer {
 
         //scrollPane = new ScrollPane(new Group(mainPane));
 
+        scrollPane = new ScrollPane(mainPane);
+        this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        // Bind the maze size to the pane size,
+        // In case user resize the window - also resizing the maze dispalyer size accordingly
+//        mazeDisplayer.widthProperty().bind(this.scrollPane.widthProperty());
+//        mazeDisplayer.heightProperty().bind(this.scrollPane.heightProperty());
         mainPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
             mazeDisplayer.setWidth(newValue.doubleValue());
         });
