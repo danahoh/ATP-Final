@@ -20,6 +20,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import static javafx.scene.input.KeyCode.*;
+
 public class MyModel extends Observable implements IModel{
 
     private Maze maze;
@@ -62,34 +64,70 @@ public class MyModel extends Observable implements IModel{
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
         switch (direction) {
-            case UP -> {
+            case UP:
+            case DIGIT8:
+            {
                 if (playerRow > 0)
                     movePlayer(playerRow - 1, playerCol);
             }
-            case DOWN -> {
+            break;
+            case DOWN:
+            case DIGIT2:
+            {
                 if (playerRow < maze.getMaze().length - 1)
                     movePlayer(playerRow + 1, playerCol);
             }
-            case LEFT -> {
+            break;
+            case LEFT:
+            case DIGIT4:
+            {
                 if (playerCol > 0)
                     movePlayer(playerRow, playerCol - 1);
             }
-            case RIGHT -> {
+            break;
+            case RIGHT:
+            case DIGIT6:
+            {
                 if (playerCol < maze.getMaze()[0].length - 1)
                     movePlayer(playerRow, playerCol + 1);
             }
+            break;
+
+            case DIGIT9:
+                if (playerRow - 1 >= 0 && playerCol + 1 < maze.getMaze()[0].length && maze.getMaze()[playerRow - 1][playerCol + 1] == 0 && (maze.getMaze()[playerRow - 1][playerCol] == 0 || maze.getMaze()[playerRow][playerCol + 1] == 0)) {
+                    movePlayer(playerRow-1,playerCol+1);
+                }
+                break;
+            case DIGIT3:
+                if (playerRow + 1 < maze.getMaze().length && playerCol + 1 < maze.getMaze()[0].length && maze.getMaze()[playerRow + 1][playerCol + 1] == 0 && (maze.getMaze()[playerRow][playerCol + 1] == 0 || maze.getMaze()[playerRow + 1][playerCol] == 0)) {
+                    movePlayer(playerRow+1,playerCol+1);
+
+                }
+                break;
+            case DIGIT7:
+                if (playerRow - 1 >= 0 && playerCol - 1 >= 0 && maze.getMaze()[playerRow - 1][playerCol - 1] == 0 && (maze.getMaze()[playerRow - 1][playerCol] == 0 || maze.getMaze()[playerRow][playerCol - 1] == 0)) {
+                    movePlayer(playerRow-1,playerCol-1);
+
+                }
+                break;
+            case DIGIT1:
+                if (playerRow + 1 < maze.getMaze().length && playerCol - 1 >= 0 && maze.getMaze()[playerRow + 1][playerCol - 1] == 0 && (maze.getMaze()[playerRow + 1][playerCol] == 0 || maze.getMaze()[playerRow][playerCol - 1] == 0)) {
+                    movePlayer(playerRow+1 , playerCol-1);
+
+                }
+                break;
         }
 
     }
 
     @Override
     public int getPlayerRow() {
-        return 0;
+        return playerRow;
     }
 
     @Override
     public int getPlayerCol() {
-        return 0;
+        return playerCol;
     }
 
     @Override

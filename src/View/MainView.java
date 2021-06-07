@@ -15,7 +15,7 @@ public class MainView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("NewFXML.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MazeStage.fxml"));
         //Pane root = FXMLLoader.load(getClass().getResource("NewFXML.fxml"));
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("Hello World");

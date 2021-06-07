@@ -16,8 +16,8 @@ import java.io.FileNotFoundException;
 public class MazeDisplayer extends Canvas {
     private Solution solution;
     public Maze maze;
-    private int playerRow;
-    private int playerCol;
+    private int playerRow = 0;
+    private int playerCol = 0;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
 
