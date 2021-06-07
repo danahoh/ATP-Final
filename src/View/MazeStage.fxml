@@ -85,9 +85,9 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="mainPane" prefHeight="364.0" prefWidth="329.0" style="-fx-background-color: #57ACD3#57ACD3;" BorderPane.alignment="CENTER">
+        <Pane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="329.0" style="-fx-background-color: #57ACD3#57ACD3;" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" onKeyPressed="#keyPressed" height="${mainPane.height}" width="${mainPane.width}" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
