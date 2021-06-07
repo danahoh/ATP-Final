@@ -20,6 +20,10 @@ public class MazeDisplayer extends Canvas {
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
 
+
+
+    StringProperty imageFileNameGoal = new SimpleStringProperty();
+
     public MazeDisplayer()
     {
         widthProperty().addListener(evt -> draw());
@@ -64,6 +68,7 @@ public class MazeDisplayer extends Canvas {
 
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             drawPlayer(graphicsContext, cellHeight, cellWidth);
+            drawGoal(graphicsContext,cellHeight,cellWidth);
 
         }
 
@@ -106,7 +111,17 @@ public class MazeDisplayer extends Canvas {
         this.imageFileNamePlayer.set(imageFileNamePlayer);
     }
 
+    public String getImageFileNameGoal() {
+        return imageFileNameGoal.get();
+    }
 
+    public StringProperty imageFileNameGoalProperty() {
+        return imageFileNameGoal;
+    }
+
+    public void setImageFileNameGoal(String imageFileNameGoal) {
+        this.imageFileNameGoal.set(imageFileNameGoal);
+    }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
 
@@ -149,6 +164,24 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
             graphicsContext.drawImage(playerImage, x, y, cellWidth, cellHeight);
+    }
+
+    private void drawGoal(GraphicsContext graphicsContext, double cellHeight, double cellWidth)
+    {
+        double x = maze.getGoalPosition().getColumnIndex() * cellWidth;
+        double y = maze.getGoalPosition().getRowIndex() * cellHeight;
+        graphicsContext.setFill(Color.PINK);
+
+        Image goalImage = null;
+        try {
+            goalImage = new Image(new FileInputStream(getImageFileNameGoal()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no goal image file");
+        }
+        if(goalImage == null)
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+        else
+            graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
     }
 }
 

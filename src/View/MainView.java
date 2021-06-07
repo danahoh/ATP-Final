@@ -1,5 +1,7 @@
 package View;
 
+import Model.MyModel;
+import ViewModel.MyViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,9 +14,9 @@ public class MainView extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Pane root = FXMLLoader.load(getClass().getResource("NewFXML.fxml"));
-        Scene scene = new Scene(root,1000,700);
+        Pane root = FXMLLoader.load(getClass().getResource("MazeStage.fxml"));
 
+        Scene scene = new Scene(root,1000,700);
         root.prefWidthProperty().bind(scene.widthProperty());
         root.prefHeightProperty().bind(scene.heightProperty());
 
@@ -23,6 +25,7 @@ public class MainView extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {

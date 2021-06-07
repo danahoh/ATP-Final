@@ -86,14 +86,19 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -104,7 +109,10 @@ public class MyViewController implements Initializable {
     private MyViewModel viewModel;
     public TextField textField_rows;
     public TextField textField_cols;
+    public BorderPane borderPane;
     public Pane mainPane;
+    public ScrollPane scrollPane;
+    double currentZoomFactor = 1;
     @FXML
     public GraphicsContext gc;
     public MazeDisplayer mazeDisplayer;
@@ -136,6 +144,8 @@ public class MyViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        //scrollPane = new ScrollPane(new Group(mainPane));
+
         mainPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
             mazeDisplayer.setWidth(newValue.doubleValue());
         });
@@ -143,6 +153,8 @@ public class MyViewController implements Initializable {
         mainPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
             mazeDisplayer.setHeight(newValue.doubleValue());
         });
+
+
     }
 //    @Override
 //    public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -261,5 +273,33 @@ public class MyViewController implements Initializable {
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeDisplayer.requestFocus();
     }
+
+    public void zoomIn(ScrollEvent scrollEvent) {
+        if (scrollEvent.isControlDown()) {
+            double deltaY = scrollEvent.getDeltaY();
+            if (deltaY > 0)
+                currentZoomFactor += 0.1;
+            else if (deltaY < 0)
+                currentZoomFactor -= 0.1;
+
+            currentZoomFactor = Math.max(currentZoomFactor, 1);
+            currentZoomFactor = Math.min(currentZoomFactor, 5);
+
+//            if (currentZoomFactor == 1) {
+//                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+//            }
+//            else {
+//                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+//                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+//            }
+
+            mainPane.setScaleX(currentZoomFactor);
+            mainPane.setScaleY(currentZoomFactor);
+        }
+        scrollEvent.consume();
+    }
+
+
 }
 

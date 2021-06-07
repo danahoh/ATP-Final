@@ -15,9 +15,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import View.MazeDisplayer?>
 <?import View.*?>
-<BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
 
+<BorderPane onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
     <left>
         <VBox prefHeight="200.0" prefWidth="178.0" spacing="5.0" style="-fx-background-color: #F3E7D2#F3E7D2;" BorderPane.alignment="CENTER">
             <children>
@@ -40,10 +41,6 @@
                     <TextField fx:id="textField_cols" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                    <Label text="Player Row = " GridPane.rowIndex="4" />
-                    <Label text="Player Col = " GridPane.rowIndex="5" />
-                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                 </GridPane>
             </children>
             <padding>
@@ -87,7 +84,7 @@
     <center>
         <Pane fx:id="mainPane" prefHeight="364.0" prefWidth="329.0" style="-fx-background-color: #57ACD3#57ACD3;" BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/tree.png" onKeyPressed="#keyPressed" height="${mainPane.height}" width="${mainPane.width}" />
+                <MazeDisplayer fx:id="mazeDisplayer" height="400.0" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/tree.png" onKeyPressed="#keyPressed" width="400.0" />
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
