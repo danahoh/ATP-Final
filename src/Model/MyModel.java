@@ -67,28 +67,28 @@ public class MyModel extends Observable implements IModel{
             case UP:
             case DIGIT8:
             {
-                if (playerRow > 0)
+                if (playerRow > 0 && maze.getMaze()[playerRow-1][playerCol]!=1)
                     movePlayer(playerRow - 1, playerCol);
             }
             break;
             case DOWN:
             case DIGIT2:
             {
-                if (playerRow < maze.getMaze().length - 1)
+                if (playerRow < maze.getMaze().length - 1 && maze.getMaze()[playerRow+1][playerCol]!=1)
                     movePlayer(playerRow + 1, playerCol);
             }
             break;
             case LEFT:
             case DIGIT4:
             {
-                if (playerCol > 0)
+                if (playerCol > 0 && maze.getMaze()[playerRow][playerCol-1]!=1)
                     movePlayer(playerRow, playerCol - 1);
             }
             break;
             case RIGHT:
             case DIGIT6:
             {
-                if (playerCol < maze.getMaze()[0].length - 1)
+                if (playerCol < maze.getMaze()[0].length - 1 && maze.getMaze()[playerRow][playerCol+1]!=1)
                     movePlayer(playerRow, playerCol + 1);
             }
             break;

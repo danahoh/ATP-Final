@@ -51,10 +51,19 @@ public class MyViewModel extends Observable implements Observer {
             case DOWN -> direction = MovementDirection.DOWN;
             case LEFT -> direction = MovementDirection.LEFT;
             case RIGHT -> direction = MovementDirection.RIGHT;
+            case DIGIT2 -> direction = MovementDirection.DIGIT2;
+            case DIGIT8 -> direction = MovementDirection.DIGIT8;
+            case DIGIT6 -> direction = MovementDirection.DIGIT6;
+            case DIGIT4 -> direction = MovementDirection.DIGIT4;
+            case DIGIT1 -> direction = MovementDirection.DIGIT1;
+            case DIGIT3 -> direction = MovementDirection.DIGIT3;
+            case DIGIT7 -> direction = MovementDirection.DIGIT7;
+            case DIGIT9 -> direction = MovementDirection.DIGIT9;
             default -> {
                 // no need to move the player...
                 return;
             }
+
         }
         model.updatePlayerLocation(direction);
     }
