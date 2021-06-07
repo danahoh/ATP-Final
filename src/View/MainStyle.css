@@ -1,5 +1,8 @@
 .root {
     -fx-background-color: #2C84C2;
+    -fx-background-image: url("/Resources/Images/pool.jpeg");
+    -fx-background-repeat: stretch;
+
 }
 
 Button {

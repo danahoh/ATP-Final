@@ -6,16 +6,17 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import View.*?>
+<?import View.MazeDisplayer?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
 
     <left>
@@ -84,14 +85,18 @@
             </children>
         </VBox>
     </top>
-    <center>
-        <Pane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="329.0" style="-fx-background-color: #57ACD3#57ACD3;" BorderPane.alignment="CENTER">
-            <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
-            </children>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-        </Pane>
-    </center>
+   <center>
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="408.0" style="-fx-background-color: #57ACD3#57ACD3;">
+                  <children>
+                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
+                  </children>
+      <!--            <padding>-->
+      <!--                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
+      <!--            </padding>-->
+              </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

@@ -18,8 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -35,7 +37,7 @@ public class MyViewController implements Initializable, Observer {
     public TextField textField_rows;
     public TextField textField_cols;
     public BorderPane borderPane;
-    public Pane mainPane;
+    public AnchorPane mainPane;
     public ScrollPane scrollPane;
     double currentZoomFactor = 1;
     @FXML
@@ -74,32 +76,25 @@ public class MyViewController implements Initializable, Observer {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //scrollPane = new ScrollPane(new Group(mainPane));
-
-        scrollPane = new ScrollPane(mainPane);
-        this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-        // Bind the maze size to the pane size,
-        // In case user resize the window - also resizing the maze dispalyer size accordingly
-//        mazeDisplayer.widthProperty().bind(this.scrollPane.widthProperty());
-//        mazeDisplayer.heightProperty().bind(this.scrollPane.heightProperty());
-        mainPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
-            mazeDisplayer.setWidth(newValue.doubleValue());
-        });
-
-        mainPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
-            mazeDisplayer.setHeight(newValue.doubleValue());
-        });
+        scrollPane.setContent(mainPane);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        mazeDisplayer.widthProperty().bind(this.scrollPane.widthProperty());
+        mazeDisplayer.heightProperty().bind(this.scrollPane.heightProperty());
+//        mainPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> {
+//            mazeDisplayer.setWidth(newValue.doubleValue());
+//        });
+//
+//        mainPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> {
+//            mazeDisplayer.setHeight(newValue.doubleValue());
+//        });
+        //mainPane.widthProperty().bind(this.scrollPane.widthProperty());
+        //mainPane.heightProperty().bind(this.scrollPane.heightProperty());
+//        mainPane.widthProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setWidth(newValue.doubleValue()));
+//        mainPane.heightProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setHeight(newValue.doubleValue()));
 
 
     }
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-////        playerRow.textProperty().bind(updatePlayerRow);
-////        playerCol.textProperty().bind(updatePlayerCol);
-//    }
-
     public void generateMaze(ActionEvent actionEvent) {
 
 
@@ -224,21 +219,29 @@ public class MyViewController implements Initializable, Observer {
                 currentZoomFactor += 0.1;
             else if (deltaY < 0)
                 currentZoomFactor -= 0.1;
-
             currentZoomFactor = Math.max(currentZoomFactor, 1);
             currentZoomFactor = Math.min(currentZoomFactor, 5);
 
-//            if (currentZoomFactor == 1) {
-//                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-//                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-//            }
-//            else {
-//                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-//                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-//            }
-
             mainPane.setScaleX(currentZoomFactor);
             mainPane.setScaleY(currentZoomFactor);
+            if (currentZoomFactor == 1) {
+                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            }
+            else {
+                this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+                this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+            }
+//
+//            mainPane.setScaleX(currentZoomFactor);
+//            mainPane.setScaleY(currentZoomFactor);
+            Group contentGroup = new Group();
+            Group zoomGroup = new Group();
+            contentGroup.getChildren().add(zoomGroup);
+            zoomGroup.getChildren().add(mainPane);
+            scrollPane.setContent(contentGroup);
+            Scale scaleTransform = new Scale(currentZoomFactor, currentZoomFactor, 0, 0);
+            zoomGroup.getTransforms().add(scaleTransform);
         }
         scrollEvent.consume();
     }
