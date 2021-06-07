@@ -1,6 +1,7 @@
 package View;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
@@ -13,7 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class MazeDisplayer extends Canvas {
-
+    private Solution solution;
     public Maze maze;
     private int playerRow;
     private int playerCol;
@@ -69,9 +70,16 @@ public class MazeDisplayer extends Canvas {
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             drawPlayer(graphicsContext, cellHeight, cellWidth);
             drawGoal(graphicsContext,cellHeight,cellWidth);
+            if(solution != null)
+                drawSolution(graphicsContext, cellHeight, cellWidth);
+            drawPlayer(graphicsContext, cellHeight, cellWidth);
 
         }
 
+    }
+    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+        // need to be implemented
+        System.out.println("drawing solution...");
     }
     public int getPlayerRow() {
         return playerRow;
@@ -182,6 +190,11 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
             graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
+    }
+
+    public void setSolution(Solution solution) {
+        this.solution = solution;
+        draw();
     }
 }
 
