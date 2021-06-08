@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -52,13 +51,6 @@
             </padding>
         </VBox>
     </left>
-    <bottom>
-        <HBox style="-fx-background-color: #F3E7D2#F3E7D2;" BorderPane.alignment="CENTER">
-            <children>
-                <Label text="Status bar" />
-            </children>
-        </HBox>
-    </bottom>
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -88,13 +80,13 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="408.0" >
+              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0">
                   <children>
-                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
+                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}"/>
                   </children>
-      <!--            <padding>-->
-      <!--                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />-->
-      <!--            </padding>-->
+                  <padding>
+                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
               </AnchorPane>
          </content>
       </ScrollPane>
