@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="startPane" prefHeight="557.0" prefWidth="660.0" style="-fx-background-color: black; -fx-background-size: 100% 100%;" stylesheets="@firstScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StartStageController">
+<AnchorPane fx:id="startPane" prefHeight="700" prefWidth="1000" stylesheets="@firstScene.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StartStageController">
     <children>
-        <Button fx:id="btn_newGame" layoutX="182.0" layoutY="983.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="107.0" prefWidth="280.0" text="Are you ready for your vacation?" textAlignment="CENTER" textFill="#191313ed" wrapText="true" AnchorPane.bottomAnchor="15.0">
+        <Button fx:id="btn_start" alignment="CENTER" contentDisplay="CENTER" layoutX="358.0" layoutY="569.0" mnemonicParsing="false" onAction="#startClicked" prefHeight="107.0" prefWidth="280.0" text="Are you ready for your vacation?" textAlignment="CENTER" textFill="#191313ed" wrapText="true" AnchorPane.bottomAnchor="24.0">
             <font>
                 <Font name="System Font" size="32.0" />
             </font></Button>

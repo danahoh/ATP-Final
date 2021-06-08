@@ -17,6 +17,7 @@
         <jarDirectory url="file://$MODULE_DIR$/../נושאים מתקדמים בתכנות/project maze/318457645_208987248/318457645_208987248/.idea/artifacts" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -26,6 +27,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>

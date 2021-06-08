@@ -75,6 +75,14 @@ public class MyViewModel extends Observable implements Observer {
     public boolean gameOver(){
         return model.gameOver();
     }
+    public void setGameOver(boolean gameOver)
+    {
+        model.setGameOver(gameOver);
+    }
+
+    public void stopServers() {
+        model.stopServers();
+    }
 }
 
 

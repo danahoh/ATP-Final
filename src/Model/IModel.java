@@ -16,4 +16,8 @@ public interface IModel {
     Solution getSolution();
 
     boolean gameOver();
+
+    void setGameOver(boolean gameOver);
+
+    void stopServers();
 }

@@ -23,6 +23,17 @@ public class MyModel extends Observable implements IModel{
     private Solution solution;
     private Server mazeGeneratorServer;
     private Server solveMazeServer;
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    @Override
+    public void stopServers() {
+        mazeGeneratorServer.stop();
+        solveMazeServer.stop();
+    }
+
     private boolean gameOver = false;
 
     public MyModel(){
@@ -35,7 +46,7 @@ public class MyModel extends Observable implements IModel{
     {
         mazeGeneratorServer.start();
         CommunicateWithServer_MazeGenerating(rows,cols);
-        mazeGeneratorServer.stop();
+        //mazeGeneratorServer.stop();
         setChanged();
         notifyObservers("maze generated");
         // start position:

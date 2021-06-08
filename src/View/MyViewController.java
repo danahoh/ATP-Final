@@ -122,6 +122,8 @@ public class MyViewController implements Initializable, Observer {
 
     }
     private void playBackgroundMusic() {
+
+        viewModel.setGameOver(false);
         winningPlayer.stop();
         backgroundPlayer.play();
     }
@@ -238,7 +240,7 @@ public class MyViewController implements Initializable, Observer {
             case "maze solved" -> mazeSolved();
             default -> System.out.println("Not implemented change: " + change);
         }
-        if (viewModel.gameOver()==true) {
+        if (viewModel.gameOver()) {
             playWinningMusic();
         }
     }
@@ -256,5 +258,14 @@ public class MyViewController implements Initializable, Observer {
     {
         mazeDisplayer.drawMaze(viewModel.getMaze());
         //setPlayerPosition(viewModel.getMaze().getStartPosition().getRowIndex(), viewModel.getMaze().getStartPosition().getColumnIndex());
+    }
+    private void closeEvent(Stage stage)
+    {
+
+    }
+
+    public void stopServers() {
+
+        viewModel.stopServers();
     }
 }
