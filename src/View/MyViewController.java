@@ -1,5 +1,3 @@
-
-
 package View;
 
 import ViewModel.MyViewModel;
@@ -15,24 +13,28 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
 public class MyViewController implements Initializable, Observer {
-   //public MazeGenerator generator;
+    //public MazeGenerator generator;
     public MyViewModel viewModel;
     public TextField textField_rows;
     public TextField textField_cols;
@@ -47,9 +49,17 @@ public class MyViewController implements Initializable, Observer {
     public Label playerCol;
     public int rows = 0;
     public int cols = 0;
+    boolean MusicOn = true;
+
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
+
+    String background = new File("./Resources/music/Background.mp3").toURI().toString();
+    MediaPlayer backgroundPlayer = new MediaPlayer(new Media(background));
+
+    String win = new File("./Resources/music/FeelSoClose.mp3").toURI().toString();
+    MediaPlayer winningPlayer = new MediaPlayer(new Media(win));
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
@@ -92,15 +102,53 @@ public class MyViewController implements Initializable, Observer {
         //mainPane.heightProperty().bind(this.scrollPane.heightProperty());
 //        mainPane.widthProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setWidth(newValue.doubleValue()));
 //        mainPane.heightProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setHeight(newValue.doubleValue()));
+        backgroundPlayer.setOnEndOfMedia(() -> backgroundPlayer.seek(Duration.ZERO));
+        backgroundPlayer.play();
 
+        FileInputStream input = null;
+        try {
+            input = new FileInputStream("./Resources/Images/pool.png");
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no back image file");
+        }
+        Image image = new Image(input);
+        BackgroundImage backgroundimage = new BackgroundImage(image,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER,
+                BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundimage);
+        mainPane.setBackground(background);
 
     }
+    private void playBackgroundMusic() {
+        winningPlayer.stop();
+        backgroundPlayer.play();
+    }
+
+    private void playWinningMusic() {
+        winningPlayer.play();
+        backgroundPlayer.stop();
+    }
+
+//    public void toggleMusic() {
+//        MusicOn = !MusicOn;
+//        if (MusicOn) {
+//            backgroundPlayer.setMute(false);
+//            winningPlayer.setMute(false);
+//        } else {
+//            backgroundPlayer.setMute(true);
+//            winningPlayer.setMute(true);
+//        }
+//    }
     public void generateMaze(ActionEvent actionEvent) {
 
 
         rows = Integer.valueOf(textField_rows.getText());
         cols = Integer.valueOf(textField_cols.getText());
         viewModel.generateMaze(rows,cols);
+        playBackgroundMusic();
+
 //        if(viewModel == null)
 //        {
 //            viewModel = new MyViewModel();
@@ -124,84 +172,18 @@ public class MyViewController implements Initializable, Observer {
     public void openFile(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open maze");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (.maze)", ".maze"));
         fc.setInitialDirectory(new File("./resources"));
         File chosen = fc.showOpenDialog(null);
         //...
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        //int row = mazeDisplayer.getPlayerRow();
-        //int col = mazeDisplayer.getPlayerCol();
-//        int[][] map = mazeDisplayer.maze.getMaze();
-//        switch (keyEvent.getCode()) {
-//            case UP:
-//            case DIGIT8:
-//                if (row != 0) {
-//                    row -= 1;
-//                }
-//                break;
-//
-//            case DOWN:
-//            case DIGIT2:
-//                if (row + 1 < rows) {
-//                    row += 1;
-//                }
-//                break;
-//
-//            case RIGHT:
-//            case DIGIT6:
-//                if (col + 1 < cols) {
-//                    col += 1;
-//                }
-//                break;
-//
-//            case LEFT:
-//            case DIGIT4:
-//                if (col != 0) {
-//                    col -= 1;
-//                }
-//                break;
-//
-//            case DIGIT9:
-//                if (row - 1 >= 0 && col + 1 < cols && map[row - 1][col + 1] == 0 && (map[row - 1][col] == 0 || map[row][col + 1] == 0)) {
-//                    row -= 1;
-//                    col += 1;
-//                }
-//                break;
-//            case DIGIT3:
-//                if (row + 1 < rows && col + 1 < cols && map[row + 1][col + 1] == 0 && (map[row][col + 1] == 0 || map[row + 1][col] == 0)) {
-//                    row += 1;
-//                    col += 1;
-//                }
-//                break;
-//            case DIGIT7:
-//                if (row - 1 >= 0 && col - 1 >= 0 && map[row - 1][col - 1] == 0 && (map[row - 1][col] == 0 || map[row][col - 1] == 0)) {
-//                    row -= 1;
-//                    col -= 1;
-//                }
-//                break;
-//            case DIGIT1:
-//                if (row + 1 < rows && col - 1 >= 0 && map[row + 1][col - 1] == 0 && (map[row + 1][col] == 0 || map[row][col - 1] == 0)) {
-//                    row += 1;
-//                    col -= 1;
-//                }
-//                break;
-//        }
-        //setPlayerPosition(row, col);
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
     }
 
     public void setPlayerPosition(int row, int col){
-//        rows = Integer.parseInt(textField_rows.getText());
-//        cols = Integer.parseInt(textField_cols.getText());
-//        if ( mazeDisplayer.maze.getMaze()[row][col] != 1)
-//        {
-//            mazeDisplayer.setPlayerPosition(row, col);
-//            setUpdatePlayerRow(row);
-//            setUpdatePlayerCol(col);
-//        }
         mazeDisplayer.setPlayerPosition(row,col);
         setUpdatePlayerRow(row);
         setUpdatePlayerCol(col);
@@ -256,6 +238,9 @@ public class MyViewController implements Initializable, Observer {
             case "maze solved" -> mazeSolved();
             default -> System.out.println("Not implemented change: " + change);
         }
+        if (viewModel.gameOver()==true) {
+            playWinningMusic();
+        }
     }
 
     private void playerMoved() {
@@ -273,4 +258,3 @@ public class MyViewController implements Initializable, Observer {
         //setPlayerPosition(viewModel.getMaze().getStartPosition().getRowIndex(), viewModel.getMaze().getStartPosition().getColumnIndex());
     }
 }
-

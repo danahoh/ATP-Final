@@ -88,7 +88,7 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="408.0" style="-fx-background-color: #57ACD3#57ACD3;">
+              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="364.0" prefWidth="408.0" >
                   <children>
                       <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
                   </children>

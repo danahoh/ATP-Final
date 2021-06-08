@@ -71,4 +71,10 @@ public class MyViewModel extends Observable implements Observer {
     public void solveMaze(){
         model.solveMaze();
     }
+
+    public boolean gameOver(){
+        return model.gameOver();
+    }
 }
+
+

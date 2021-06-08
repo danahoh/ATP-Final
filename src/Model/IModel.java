@@ -14,4 +14,6 @@ public interface IModel {
     void assignObserver(Observer o);
     void solveMaze();
     Solution getSolution();
+
+    boolean gameOver();
 }

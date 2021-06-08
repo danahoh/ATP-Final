@@ -7,20 +7,13 @@ import Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
 import Server.ServerStrategyGenerateMaze;
 import Client.IClientStrategy;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.Position;
-import algorithms.search.AState;
 import algorithms.search.Solution;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Set;
-
-import static javafx.scene.input.KeyCode.*;
 
 public class MyModel extends Observable implements IModel{
 
@@ -30,6 +23,7 @@ public class MyModel extends Observable implements IModel{
     private Solution solution;
     private Server mazeGeneratorServer;
     private Server solveMazeServer;
+    private boolean gameOver = false;
 
     public MyModel(){
         mazeGeneratorServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -55,10 +49,18 @@ public class MyModel extends Observable implements IModel{
     }
 
     private void movePlayer(int row, int col){
+        if (row == maze.getGoalPosition().getRowIndex() && col == maze.getGoalPosition().getColumnIndex())
+        {
+            gameOver=true;
+        }
         this.playerRow = row;
         this.playerCol = col;
         setChanged();
         notifyObservers("player moved");
+    }
+
+    public boolean gameOver(){
+        return gameOver;
     }
 
     @Override
