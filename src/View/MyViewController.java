@@ -216,9 +216,6 @@ public class MyViewController implements Initializable, Observer {
                 this.scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
                 this.scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
             }
-//
-//            mainPane.setScaleX(currentZoomFactor);
-//            mainPane.setScaleY(currentZoomFactor);
             Group contentGroup = new Group();
             Group zoomGroup = new Group();
             contentGroup.getChildren().add(zoomGroup);
@@ -258,10 +255,6 @@ public class MyViewController implements Initializable, Observer {
     {
         mazeDisplayer.drawMaze(viewModel.getMaze());
         //setPlayerPosition(viewModel.getMaze().getStartPosition().getRowIndex(), viewModel.getMaze().getStartPosition().getColumnIndex());
-    }
-    private void closeEvent(Stage stage)
-    {
-
     }
 
     public void stopServers() {
