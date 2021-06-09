@@ -266,5 +266,7 @@ public class MyModel extends Observable implements IModel{
         setChanged();
         notifyObservers("maze loaded");
 
+
+
     }
 }
