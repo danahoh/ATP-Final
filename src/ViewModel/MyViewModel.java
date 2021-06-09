@@ -83,6 +83,14 @@ public class MyViewModel extends Observable implements Observer {
     public void stopServers() {
         model.stopServers();
     }
+
+    public void saveFile() {
+        model.saveFile();
+    }
+
+    public void loadFile(String name) {
+        model.loadFile(name);
+    }
 }
 
 

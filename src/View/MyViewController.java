@@ -169,15 +169,6 @@ public class MyViewController implements Initializable, Observer {
         viewModel.solveMaze();
     }
 
-    public void openFile(ActionEvent actionEvent) {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Open maze");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (.maze)", ".maze"));
-        fc.setInitialDirectory(new File("./resources"));
-        File chosen = fc.showOpenDialog(null);
-        //...
-    }
-
     public void keyPressed(KeyEvent keyEvent) {
         viewModel.movePlayer(keyEvent);
         keyEvent.consume();
@@ -233,11 +224,18 @@ public class MyViewController implements Initializable, Observer {
             case "maze generated" -> mazeGenerated();
             case "player moved" -> playerMoved();
             case "maze solved" -> mazeSolved();
+            case "maze loaded" -> mazeLoaded();
             default -> System.out.println("Not implemented change: " + change);
         }
         if (viewModel.gameOver()) {
             playWinningMusic();
         }
+    }
+
+    private void mazeLoaded() {
+
+        mazeDisplayer.drawMaze(viewModel.getMaze());
+
     }
 
     private void playerMoved() {
@@ -258,5 +256,25 @@ public class MyViewController implements Initializable, Observer {
     public void stopServers() {
 
         viewModel.stopServers();
+    }
+
+    public void saveFile(ActionEvent actionEvent) {
+        viewModel.saveFile();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Maze Saved");
+        alert.show();
+    }
+
+    public void loadFile(ActionEvent actionEvent) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open maze");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (.maze)", "*.maze"));
+        fc.setInitialDirectory(new File("./savedMazes"));
+        File chosen = fc.showOpenDialog(null);
+        viewModel.loadFile(chosen.getName());
+    }
+
+    public void newFile(ActionEvent actionEvent) {
+        generateMaze(actionEvent);
     }
 }

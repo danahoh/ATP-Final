@@ -1,6 +1,7 @@
 package Model;
 
 import Client.Client;
+import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategySolveSearchProblem;
@@ -12,6 +13,10 @@ import algorithms.search.Solution;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +28,8 @@ public class MyModel extends Observable implements IModel{
     private Solution solution;
     private Server mazeGeneratorServer;
     private Server solveMazeServer;
+    private boolean gameOver = false;
+
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
@@ -34,7 +41,8 @@ public class MyModel extends Observable implements IModel{
         solveMazeServer.stop();
     }
 
-    private boolean gameOver = false;
+
+
 
     public MyModel(){
         mazeGeneratorServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -216,5 +224,47 @@ public class MyModel extends Observable implements IModel{
         } catch (UnknownHostException var1) {
             var1.printStackTrace();
         }
+    }
+    @Override
+    public void saveFile()
+    {
+        if(maze != null) {
+
+            Path path = Paths.get("SavedMazes");
+            if (!Files.exists(path)) {
+                new File("SavedMazes").mkdir();
+            }
+            String savedMazeName = new Date().getTime() + ".maze";
+            String mazeFileName = "SavedMazes" + '\\' + savedMazeName;
+            try {
+                OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
+                out.write(maze.toByteArray());
+                out.flush();
+                out.close();
+            } catch (IOException var8) {
+                //var8.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void loadFile(String name) {
+
+        byte[] savedMazeBytes = new byte[0];
+        try {
+            InputStream in = new MyDecompressorInputStream(new FileInputStream(name));
+            savedMazeBytes = new byte[100000];
+            in.read(savedMazeBytes);
+            in.close();
+        } catch (IOException var7) {
+            //ar7.printStackTrace();
+        }
+
+        maze = new Maze(savedMazeBytes);
+        movePlayer(maze.getStartPosition().getRowIndex(), maze.getStartPosition().getColumnIndex());
+        setChanged();
+        notifyObservers("maze loaded");
+
     }
 }

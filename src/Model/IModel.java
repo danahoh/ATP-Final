@@ -20,4 +20,8 @@ public interface IModel {
     void setGameOver(boolean gameOver);
 
     void stopServers();
+
+    void saveFile();
+
+    void loadFile(String name);
 }
