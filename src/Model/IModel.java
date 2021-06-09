@@ -21,9 +21,9 @@ public interface IModel {
 
     void stopServers();
 
-    void saveFile();
+    boolean saveFile();
 
-    void loadFile(String name);
+    boolean loadFile(String name);
 
     void removeSolution();
 }

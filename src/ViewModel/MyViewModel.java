@@ -84,12 +84,12 @@ public class MyViewModel extends Observable implements Observer {
         model.stopServers();
     }
 
-    public void saveFile() {
-        model.saveFile();
+    public boolean saveFile() {
+        return model.saveFile();
     }
 
-    public void loadFile(String name) {
-        model.loadFile(name);
+    public boolean loadFile(String name) {
+        return model.loadFile(name);
     }
 
     public void removeSolution() {

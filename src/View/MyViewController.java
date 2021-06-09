@@ -148,7 +148,17 @@ public class MyViewController implements Initializable, Observer {
         showSolution = false;
         rows = Integer.valueOf(textField_rows.getText());
         cols = Integer.valueOf(textField_cols.getText());
-        viewModel.generateMaze(rows,cols);
+        if (rows <=  1 || cols <= 1 || rows > 1000 || cols > 1000)
+        {
+            Alert alertGenerate = new Alert(Alert.AlertType.WARNING);
+            alertGenerate.setContentText("Invalid Input");
+            alertGenerate.show();
+        }
+        else
+        {
+            viewModel.generateMaze(rows,cols);
+        }
+
         playBackgroundMusic();
 
 
@@ -167,26 +177,16 @@ public class MyViewController implements Initializable, Observer {
 
     public void solveMaze(ActionEvent actionEvent) {
 
-//        if (!isSolutionShowed) {
-//            try {
-//                // Solve the maze
-//                this.viewModel.solveMaze();
-//                // Toggle button to hide
-//                //solveMazeButton.setText("hide solution");
-//                isSolutionShowed = true;
-//            } catch (Exception ex) {
-//                //showAlert("you must generate a maze first");
-//            }
-//        }
-//        // If solution is showed
-//        else {
-//            // Hide the maze
-//            this.viewModel.removeSolution();
-//            solveMazeButton.setText("Show solution");
-//            isSolutionShowed = false;
-//        }
-        showSolution = true;
-        viewModel.solveMaze();
+        if(viewModel.getMaze()!=null)
+        {
+            showSolution = true;
+            viewModel.solveMaze();        }
+        else {
+            Alert alertSolve = new Alert(Alert.AlertType.WARNING);
+            alertSolve.setContentText("You need generate maze first");
+            alertSolve.show();
+        }
+
     }
 
     public void keyPressed(KeyEvent keyEvent) {
@@ -255,13 +255,11 @@ public class MyViewController implements Initializable, Observer {
     private void hideSolution()
     {
         mazeDisplayer.setShowSolution(false);
-        //mazeDisplayer.drawMaze(viewModel.getMaze());
     }
 
     private void mazeLoaded() {
 
         mazeDisplayer.drawMaze(viewModel.getMaze());
-
     }
 
     private void playerMoved() {
@@ -285,10 +283,17 @@ public class MyViewController implements Initializable, Observer {
     }
 
     public void saveFile(ActionEvent actionEvent) {
-        viewModel.saveFile();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Maze Saved");
-        alert.show();
+        if (viewModel.saveFile())
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Maze Saved");
+            alert.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Maze saving failed");
+            alert.show();
+        }
     }
 
     public void loadFile(ActionEvent actionEvent) {
@@ -297,7 +302,17 @@ public class MyViewController implements Initializable, Observer {
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (.maze)", "*.maze"));
         fc.setInitialDirectory(new File("./savedMazes"));
         File chosen = fc.showOpenDialog(null);
-        viewModel.loadFile(chosen.getName());
+        if (viewModel.loadFile(chosen.getName()))
+        {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Maze loaded");
+            alert.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Maze loading failed");
+            alert.show();
+        }
     }
 
     public void newFile(ActionEvent actionEvent) {

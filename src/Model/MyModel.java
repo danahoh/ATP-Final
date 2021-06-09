@@ -226,7 +226,7 @@ public class MyModel extends Observable implements IModel{
         }
     }
     @Override
-    public void saveFile()
+    public boolean saveFile()
     {
         if(maze != null) {
 
@@ -242,13 +242,14 @@ public class MyModel extends Observable implements IModel{
                 out.flush();
                 out.close();
             } catch (IOException var8) {
-                //var8.printStackTrace();
+                return false;
             }
+            return true;
         }
-
+        return false;
     }
     @Override
-    public void loadFile(String name) {
+    public boolean loadFile(String name) {
 
         byte[] savedMazeBytes = new byte[0];
         try {
@@ -257,13 +258,14 @@ public class MyModel extends Observable implements IModel{
             in.read(savedMazeBytes);
             in.close();
         } catch (IOException var7) {
-            //ar7.printStackTrace();
+            return false;
         }
 
         maze = new Maze(savedMazeBytes);
         movePlayer(maze.getStartPosition().getRowIndex(), maze.getStartPosition().getColumnIndex());
         setChanged();
         notifyObservers("maze loaded");
+        return true;
 
 
 
