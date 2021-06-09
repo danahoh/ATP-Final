@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +38,7 @@ public class MyViewController implements Initializable, Observer {
     public BorderPane borderPane;
     public AnchorPane mainPane;
     public ScrollPane scrollPane;
+    public ToggleButton toggleMusic;
     double currentZoomFactor = 1;
     @FXML
     public GraphicsContext gc;
@@ -133,16 +131,16 @@ public class MyViewController implements Initializable, Observer {
         backgroundPlayer.stop();
     }
 
-//    public void toggleMusic() {
-//        MusicOn = !MusicOn;
-//        if (MusicOn) {
-//            backgroundPlayer.setMute(false);
-//            winningPlayer.setMute(false);
-//        } else {
-//            backgroundPlayer.setMute(true);
-//            winningPlayer.setMute(true);
-//        }
-//    }
+    public void toggleMusic() {
+        MusicOn = !MusicOn;
+        if (MusicOn) {
+            backgroundPlayer.setMute(false);
+            winningPlayer.setMute(false);
+        } else {
+            backgroundPlayer.setMute(true);
+            winningPlayer.setMute(true);
+        }
+    }
     public void generateMaze(ActionEvent actionEvent) {
 
 

@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import View.MazeDisplayer?>
+<?import javafx.scene.control.ToggleButton?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
 
     <left>
@@ -40,10 +41,12 @@
                     <TextField fx:id="textField_cols" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                     <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                    <Label text="Player Row = " GridPane.rowIndex="4" />
-                    <Label text="Player Col = " GridPane.rowIndex="5" />
-                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+<!--                    <Label text="Player Row = " GridPane.rowIndex="4" />-->
+<!--                    <Label text="Player Col = " GridPane.rowIndex="5" />-->
+<!--                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />-->
+<!--                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />-->
+                    <ToggleButton fx:id="toggleMusic" onAction="#toggleMusic" GridPane.columnIndex="0"
+                                  GridPane.columnSpan="2" GridPane.rowIndex="5" prefHeight="30" prefWidth="30" />
                 </GridPane>
             </children>
             <padding>

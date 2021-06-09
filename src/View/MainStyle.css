@@ -1,7 +1,7 @@
 .root {
     /*-fx-background-color: #2C84C2;*/
-    /*!*-fx-background-image: url("/Resources/Images/pool.jpeg");*!*/
-    /*!*-fx-background-repeat: stretch;*!*/
+    /**-fx-background-image: url("/Resources/Images/pool.jpeg");*!*/
+    /**-fx-background-repeat: stretch;*!*/
 
 }
 
@@ -21,4 +21,15 @@ Button:hover {
     -fx-text-fill: -fx-text-base-color;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
+}
+
+ToggleButton {
+    -fx-outline:none;
+
+    -fx-graphic: url("stop1.png");
+
+}
+
+ToggleButton:selected {
+    -fx-graphic: url("play1.png");
 }
