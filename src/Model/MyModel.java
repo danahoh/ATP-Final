@@ -247,7 +247,6 @@ public class MyModel extends Observable implements IModel{
         }
 
     }
-
     @Override
     public void loadFile(String name) {
 

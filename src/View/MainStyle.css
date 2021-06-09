@@ -26,10 +26,10 @@ Button:hover {
 ToggleButton {
     -fx-outline:none;
 
-    -fx-graphic: url("stop1.png");
+    -fx-graphic: url("newPlay.png");
 
 }
 
 ToggleButton:selected {
-    -fx-graphic: url("play1.png");
+    -fx-graphic: url("newStop.png");
 }
