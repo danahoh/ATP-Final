@@ -48,6 +48,8 @@ public class MyViewController implements Initializable, Observer {
     public int rows = 0;
     public int cols = 0;
     boolean MusicOn = true;
+    boolean showSolution = false;
+
 
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
@@ -143,11 +145,12 @@ public class MyViewController implements Initializable, Observer {
     }
     public void generateMaze(ActionEvent actionEvent) {
 
-
+        showSolution = false;
         rows = Integer.valueOf(textField_rows.getText());
         cols = Integer.valueOf(textField_cols.getText());
         viewModel.generateMaze(rows,cols);
         playBackgroundMusic();
+
 
 //        if(viewModel == null)
 //        {
@@ -163,9 +166,26 @@ public class MyViewController implements Initializable, Observer {
     }
 
     public void solveMaze(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Solving maze...");
-        alert.show();
+
+//        if (!isSolutionShowed) {
+//            try {
+//                // Solve the maze
+//                this.viewModel.solveMaze();
+//                // Toggle button to hide
+//                //solveMazeButton.setText("hide solution");
+//                isSolutionShowed = true;
+//            } catch (Exception ex) {
+//                //showAlert("you must generate a maze first");
+//            }
+//        }
+//        // If solution is showed
+//        else {
+//            // Hide the maze
+//            this.viewModel.removeSolution();
+//            solveMazeButton.setText("Show solution");
+//            isSolutionShowed = false;
+//        }
+        showSolution = true;
         viewModel.solveMaze();
     }
 
@@ -216,7 +236,6 @@ public class MyViewController implements Initializable, Observer {
         scrollEvent.consume();
     }
 
-
     @Override
     public void update(Observable o, Object arg) {
         String change = (String) arg;
@@ -225,11 +244,18 @@ public class MyViewController implements Initializable, Observer {
             case "player moved" -> playerMoved();
             case "maze solved" -> mazeSolved();
             case "maze loaded" -> mazeLoaded();
+            case "hide solution" -> hideSolution();
             default -> System.out.println("Not implemented change: " + change);
         }
         if (viewModel.gameOver()) {
             playWinningMusic();
         }
+    }
+
+    private void hideSolution()
+    {
+        mazeDisplayer.setShowSolution(false);
+        //mazeDisplayer.drawMaze(viewModel.getMaze());
     }
 
     private void mazeLoaded() {

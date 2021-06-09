@@ -91,6 +91,10 @@ public class MyViewModel extends Observable implements Observer {
     public void loadFile(String name) {
         model.loadFile(name);
     }
+
+    public void removeSolution() {
+        model.removeSolution();
+    }
 }
 
 

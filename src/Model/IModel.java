@@ -24,4 +24,6 @@ public interface IModel {
     void saveFile();
 
     void loadFile(String name);
+
+    void removeSolution();
 }

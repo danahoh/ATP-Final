@@ -46,13 +46,16 @@ public class MyModel extends Observable implements IModel{
 
     public MyModel(){
         mazeGeneratorServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+        mazeGeneratorServer.start();
         solveMazeServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
+        solveMazeServer.start();
+
     }
 
 
     public void generateMaze(int rows,int cols)
     {
-        mazeGeneratorServer.start();
+        removeSolution();
         CommunicateWithServer_MazeGenerating(rows,cols);
         //mazeGeneratorServer.stop();
         setChanged();
@@ -159,11 +162,9 @@ public class MyModel extends Observable implements IModel{
     @Override
     public void solveMaze() {
         //solve the maze
-        mazeGeneratorServer.start();
+        CommunicateWithServer_SolveSearchProblem(this.maze);
         setChanged();
         notifyObservers("maze solved");
-
-        CommunicateWithServer_SolveSearchProblem(this.maze);
 
     }
 
@@ -217,7 +218,6 @@ public class MyModel extends Observable implements IModel{
                     } catch (Exception var10) {
                         var10.printStackTrace();
                     }
-
                 }
             });
             client.communicateWithServer();
@@ -266,6 +266,14 @@ public class MyModel extends Observable implements IModel{
         notifyObservers("maze loaded");
 
 
+
+    }
+
+    @Override
+    public void removeSolution() {
+        this.solution = null;
+        setChanged();
+        notifyObservers("hide solution");
 
     }
 }

@@ -1,6 +1,9 @@
 package View;
 
 import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.AState;
+import algorithms.search.MazeState;
 import algorithms.search.Solution;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,12 +15,14 @@ import javafx.scene.paint.Color;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class MazeDisplayer extends Canvas {
     private Solution solution;
     public Maze maze;
     private int playerRow = 0;
     private int playerCol = 0;
+    private boolean showSolution = false;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
 
@@ -70,7 +75,7 @@ public class MazeDisplayer extends Canvas {
             drawMazeWalls(graphicsContext, cellHeight, cellWidth, rows, cols);
             drawPlayer(graphicsContext, cellHeight, cellWidth);
             drawGoal(graphicsContext,cellHeight,cellWidth);
-            if(solution != null)
+            if(solution != null && showSolution)
                 drawSolution(graphicsContext, cellHeight, cellWidth);
             drawPlayer(graphicsContext, cellHeight, cellWidth);
 
@@ -78,8 +83,22 @@ public class MazeDisplayer extends Canvas {
 
     }
     private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
-        // need to be implemented
-        System.out.println("drawing solution...");
+
+        graphicsContext.setFill(Color.PINK);
+        ArrayList<AState> path = solution.getSolutionPath();
+        for(int i = 0; i < path.size(); ++i) {
+            MazeState mState = (MazeState) path.get(i);
+            Position pos = mState.getState();
+
+            double x = pos.getColumnIndex() * cellWidth;
+            double y = pos.getRowIndex() * cellHeight;
+            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+
+//            if(wallImage1 == null)
+//                graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+//            else
+//                graphicsContext.drawImage(wall1Image, x, y, cellWidth, cellHeight);
+        }
     }
     public int getPlayerRow() {
         return playerRow;
@@ -194,6 +213,12 @@ public class MazeDisplayer extends Canvas {
 
     public void setSolution(Solution solution) {
         this.solution = solution;
+        showSolution = true;
+        draw();
+    }
+
+    public void setShowSolution(boolean b) {
+        showSolution = b;
         draw();
     }
 }
