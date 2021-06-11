@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import View.MazeDisplayer?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
 
     <left>
@@ -72,12 +73,14 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#openProperties" text="Properties" />
                             </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
+                            </items>
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openHelp" text="Help" />
                             </items>
                         </Menu>
+
                         <Menu mnemonicParsing="false" text="Exit">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#exitGame" text="Exit Game" />

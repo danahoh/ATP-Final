@@ -44,7 +44,6 @@ public class StartStageController {
     }
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        //MazeDisplayer.audioChooser(0);
     }
     public void setMazeDisplayer(MazeDisplayer mazeDisplayer) {
         this.mazeDisplayer = mazeDisplayer;

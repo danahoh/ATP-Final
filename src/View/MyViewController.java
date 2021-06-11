@@ -20,6 +20,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -66,6 +67,10 @@ public class MyViewController implements Initializable, Observer {
 
     String win = new File("./src/Resources/music/FeelSoClose.mp3").toURI().toString();
     MediaPlayer winningPlayer = new MediaPlayer(new Media(win));
+
+    String video = new File("./src/Resources/music/funjoya.mp4").toURI().toString();
+    MediaPlayer videoPlayer = new MediaPlayer(new Media(video));
+    MediaView mediaView = new MediaView(videoPlayer);
 
     public void setViewModel(MyViewModel viewModel) {
         this.viewModel = viewModel;
@@ -135,8 +140,9 @@ public class MyViewController implements Initializable, Observer {
     }
 
     private void playWinningMusic() {
-        winningPlayer.play();
         backgroundPlayer.stop();
+        winningPlayer.play();
+
     }
 
     public void toggleMusic() {
@@ -247,8 +253,28 @@ public class MyViewController implements Initializable, Observer {
             default -> System.out.println("Not implemented change: " + change);
         }
         if (viewModel.gameOver()) {
-            playWinningMusic();
+            try {
+                playWinningMusic();
+                openVideo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void openVideo() throws IOException {
+
+        videoPlayer.setAutoPlay(true);
+        videoPlayer.setMute(true);
+        videoPlayer.setOnEndOfMedia(() -> videoPlayer.seek(Duration.ZERO));
+        Group root = new Group();
+        root.getChildren().add(mediaView);
+        Scene scene = new Scene(root, 800, 550);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+
     }
 
     private void hideSolution()
@@ -341,11 +367,22 @@ public class MyViewController implements Initializable, Observer {
     public void openAbout() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("About.fxml"));
         Parent parent = fxmlLoader.load();
-        Scene scene = new Scene(parent, 300, 200);
+        Scene scene = new Scene(parent, 600, 400);
         Stage stage = new Stage();
         stage.setTitle("About Us");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
+    }
+
+    public void openHelp() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Help.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent, 600, 400);
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
     }
 }
