@@ -35,6 +35,7 @@ public class MyModel extends Observable implements IModel{
 
 
     public void setGameOver(boolean gameOver) {
+
         this.gameOver = gameOver;
     }
 
@@ -268,7 +269,6 @@ public class MyModel extends Observable implements IModel{
         return true;
 
 
-
     }
 
     @Override
@@ -279,25 +279,4 @@ public class MyModel extends Observable implements IModel{
 
     }
 
-//    @Override
-//    public void saveProperties(String selectedSearch, String selectedGenerate) {
-//        conf.setGeneratingAlgo(selectedGenerate);
-//        conf.setSearchingAlgo(selectedSearch);
-//        try {
-//            conf.save();
-//            // logger.info("Save changes to conf");
-//        } catch (IOException | URISyntaxException e) {
-//            // logger.error("Failed saving changes to conf");
-//        }
-//    }
-//
-//    @Override
-//    public Object getSearchAlgorithm() {
-//        return conf.getSearchingAlgo();
-//    }
-
-//    @Override
-//    public Object getGenerateAlgorithm() {
-//        return conf.getGeneratingAlgo();
-//    }
 }

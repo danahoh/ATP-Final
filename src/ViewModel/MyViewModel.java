@@ -4,6 +4,7 @@ import Model.IModel;
 import Model.MovementDirection;
 import algorithms.mazeGenerators.Maze;
 import algorithms.search.Solution;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.util.Observable;
@@ -44,9 +45,9 @@ public class MyViewModel extends Observable implements Observer {
         model.generateMaze(rows, cols);
     }
 
-    public void movePlayer(KeyEvent keyEvent){
+    public void movePlayer(KeyCode keyCode){
         MovementDirection direction;
-        switch (keyEvent.getCode()){
+        switch (keyCode){
             case UP -> direction = MovementDirection.UP;
             case DOWN -> direction = MovementDirection.DOWN;
             case LEFT -> direction = MovementDirection.LEFT;

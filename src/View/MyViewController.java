@@ -5,6 +5,7 @@ import algorithms.mazeGenerators.Maze;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -25,6 +27,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -56,6 +59,8 @@ public class MyViewController implements Initializable, Observer {
     public int cols = 0;
     boolean MusicOn = true;
     boolean showSolution = false;
+    boolean moveWithMouse = false;
+
 
 
 
@@ -113,8 +118,7 @@ public class MyViewController implements Initializable, Observer {
         //mainPane.heightProperty().bind(this.scrollPane.heightProperty());
 //        mainPane.widthProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setWidth(newValue.doubleValue()));
 //        mainPane.heightProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setHeight(newValue.doubleValue()));
-        backgroundPlayer.setOnEndOfMedia(() -> backgroundPlayer.seek(Duration.ZERO));
-        backgroundPlayer.play();
+
 
         FileInputStream input = null;
         try {
@@ -175,6 +179,8 @@ public class MyViewController implements Initializable, Observer {
             alertGenerate.setContentText("Invalid Input");
             alertGenerate.show();
         }
+        backgroundPlayer.setOnEndOfMedia(() -> backgroundPlayer.seek(Duration.ZERO));
+        backgroundPlayer.play();
         playBackgroundMusic();
 
     }
@@ -194,7 +200,7 @@ public class MyViewController implements Initializable, Observer {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        viewModel.movePlayer(keyEvent);
+        viewModel.movePlayer(keyEvent.getCode());
         keyEvent.consume();
     }
 
@@ -269,13 +275,66 @@ public class MyViewController implements Initializable, Observer {
         videoPlayer.setOnEndOfMedia(() -> videoPlayer.seek(Duration.ZERO));
         Group root = new Group();
         root.getChildren().add(mediaView);
-        Scene scene = new Scene(root, 800, 550);
+        Scene scene = new Scene(root, 1000, 700);
         Stage stage = new Stage();
+        stage.setTitle("You Won!!!");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.showAndWait();
+        stage.show();
+        SetEndStageCloseEvent(stage);
 
     }
+    private void SetEndStageCloseEvent(Stage stage) {
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent windowEvent) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setContentText("You made it! Do you want to start again?");
+
+                ButtonType newGame = new ButtonType("New Game");
+                ButtonType closeGame = new ButtonType("Close Game");
+                alert.getButtonTypes().setAll(newGame, closeGame);
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == newGame)
+                {
+                    videoPlayer.stop();
+                    viewModel.setGameOver(false);
+                    generateMaze(new ActionEvent());
+                    stage.close();
+
+                }
+                else if (result.get() == closeGame) {
+                    exitGame();
+                }
+
+            }
+        });
+    }
+    public void mouseDragged(MouseEvent mouseEvent) {
+        if(viewModel.getMaze() != null) {
+            int maximumSize = Math.max(viewModel.getMaze().getMaze()[0].length, viewModel.getMaze().getMaze().length);
+            double mousePosX = helperMouseDragged(maximumSize,mazeDisplayer.getHeight(),
+                    viewModel.getMaze().getMaze().length ,mouseEvent.getX(),mazeDisplayer.getWidth() / maximumSize);
+            double mousePosY=helperMouseDragged(maximumSize,mazeDisplayer.getWidth(),
+                    viewModel.getMaze().getMaze()[0].length,mouseEvent.getY(),mazeDisplayer.getHeight() / maximumSize);
+            if ( mousePosX == viewModel.getPlayerCol() && mousePosY < viewModel.getPlayerRow() )
+                viewModel.movePlayer(KeyCode.DIGIT8);
+            else if (mousePosY == viewModel.getPlayerRow() && mousePosX > viewModel.getPlayerCol() )
+                viewModel.movePlayer(KeyCode.DIGIT6);
+            else if ( mousePosY == viewModel.getPlayerRow() && mousePosX < viewModel.getPlayerCol() )
+                viewModel.movePlayer(KeyCode.DIGIT4);
+            else if (mousePosX == viewModel.getPlayerCol() && mousePosY > viewModel.getPlayerRow()  )
+                viewModel.movePlayer(KeyCode.DIGIT2);
+
+        }
+    }
+    private  double helperMouseDragged(int maxsize, double canvasSize, int mazeSize,double mouseEvent,double temp){
+        double cellSize=canvasSize/maxsize;
+        double start = (canvasSize / 2 - (cellSize * mazeSize / 2)) / cellSize;
+        double mouse = (int) ((mouseEvent) / (temp) - start);
+        return mouse;
+    }
+
 
     private void hideSolution()
     {
