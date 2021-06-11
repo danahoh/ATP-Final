@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import View.MazeDisplayer?>
 <BorderPane fx:id="borderPane" onMouseClicked="#mouseClicked" prefHeight="408.0" prefWidth="594.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
 
     <left>
@@ -69,14 +68,19 @@
                                 <MenuItem mnemonicParsing="false" onAction="#loadFile" text="Load" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Options">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="false" onAction="#openProperties" text="Properties" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Exit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#exitGame" text="Exit Game" />
                             </items>
                         </Menu>
                     </menus>
@@ -89,7 +93,7 @@
          <content>
               <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0">
                   <children>
-                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./Resources/Images/danavit.png" imageFileNameWall="./Resources/Images/sandTree.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
+                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./src/Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./src/Resources/Images/danavit.png" imageFileNameWall="./src/Resources/Images/sandTree.png" imageFileNameSol="./src/Resources/Images/ball1.png" onKeyPressed="#keyPressed" width="${mainPane.width}" />
                   </children>
                   <padding>
                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

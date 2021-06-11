@@ -12,6 +12,7 @@ import algorithms.search.Solution;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,6 +30,8 @@ public class MyModel extends Observable implements IModel{
     private Server mazeGeneratorServer;
     private Server solveMazeServer;
     private boolean gameOver = false;
+    //private Configurations conf = new Configurations();
+
 
 
     public void setGameOver(boolean gameOver) {
@@ -40,9 +43,6 @@ public class MyModel extends Observable implements IModel{
         mazeGeneratorServer.stop();
         solveMazeServer.stop();
     }
-
-
-
 
     public MyModel(){
         mazeGeneratorServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
@@ -278,4 +278,26 @@ public class MyModel extends Observable implements IModel{
         notifyObservers("hide solution");
 
     }
+
+//    @Override
+//    public void saveProperties(String selectedSearch, String selectedGenerate) {
+//        conf.setGeneratingAlgo(selectedGenerate);
+//        conf.setSearchingAlgo(selectedSearch);
+//        try {
+//            conf.save();
+//            // logger.info("Save changes to conf");
+//        } catch (IOException | URISyntaxException e) {
+//            // logger.error("Failed saving changes to conf");
+//        }
+//    }
+//
+//    @Override
+//    public Object getSearchAlgorithm() {
+//        return conf.getSearchingAlgo();
+//    }
+
+//    @Override
+//    public Object getGenerateAlgorithm() {
+//        return conf.getGeneratingAlgo();
+//    }
 }

@@ -25,10 +25,9 @@ public class MazeDisplayer extends Canvas {
     private boolean showSolution = false;
     StringProperty imageFileNameWall = new SimpleStringProperty();
     StringProperty imageFileNamePlayer = new SimpleStringProperty();
-
-
-
     StringProperty imageFileNameGoal = new SimpleStringProperty();
+    StringProperty imageFileNameSol = new SimpleStringProperty();
+
 
     public MazeDisplayer()
     {
@@ -82,24 +81,7 @@ public class MazeDisplayer extends Canvas {
         }
 
     }
-    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
 
-        graphicsContext.setFill(Color.PINK);
-        ArrayList<AState> path = solution.getSolutionPath();
-        for(int i = 0; i < path.size(); ++i) {
-            MazeState mState = (MazeState) path.get(i);
-            Position pos = mState.getState();
-
-            double x = pos.getColumnIndex() * cellWidth;
-            double y = pos.getRowIndex() * cellHeight;
-            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-
-//            if(wallImage1 == null)
-//                graphicsContext.fillRect(x, y, cellWidth, cellHeight);
-//            else
-//                graphicsContext.drawImage(wall1Image, x, y, cellWidth, cellHeight);
-        }
-    }
     public int getPlayerRow() {
         return playerRow;
     }
@@ -148,6 +130,18 @@ public class MazeDisplayer extends Canvas {
 
     public void setImageFileNameGoal(String imageFileNameGoal) {
         this.imageFileNameGoal.set(imageFileNameGoal);
+    }
+
+    public String getImageFileNameSol() {
+        return imageFileNameSol.get();
+    }
+
+    public StringProperty imageFileNameSolProperty() {
+        return imageFileNameSol;
+    }
+
+    public void setImageFileNameSol(String imageFileNameSol) {
+        this.imageFileNameSol.set(imageFileNameSol);
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth, int rows, int cols) {
@@ -209,6 +203,29 @@ public class MazeDisplayer extends Canvas {
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
             graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
+    }
+    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+
+        graphicsContext.setFill(Color.PINK);
+        ArrayList<AState> path = solution.getSolutionPath();
+        Image solImage = null;
+        try {
+            solImage = new Image(new FileInputStream(getImageFileNameSol()));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no goal image file");
+        }
+        for(int i = 0; i < path.size(); ++i) {
+            MazeState mState = (MazeState) path.get(i);
+            Position pos = mState.getState();
+
+            double x = pos.getColumnIndex() * cellWidth;
+            double y = pos.getRowIndex() * cellHeight;
+            //graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            if(solImage == null)
+                graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            else
+                graphicsContext.drawImage(solImage, x, y, cellWidth, cellHeight);
+        }
     }
 
     public void setSolution(Solution solution) {

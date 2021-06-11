@@ -6,8 +6,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -19,15 +22,18 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MyViewController implements Initializable, Observer {
@@ -55,10 +61,10 @@ public class MyViewController implements Initializable, Observer {
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
-    String background = new File("./Resources/music/Background.mp3").toURI().toString();
+    String background = new File("./src/Resources/music/Background.mp3").toURI().toString();
     MediaPlayer backgroundPlayer = new MediaPlayer(new Media(background));
 
-    String win = new File("./Resources/music/FeelSoClose.mp3").toURI().toString();
+    String win = new File("./src/Resources/music/FeelSoClose.mp3").toURI().toString();
     MediaPlayer winningPlayer = new MediaPlayer(new Media(win));
 
     public void setViewModel(MyViewModel viewModel) {
@@ -107,7 +113,7 @@ public class MyViewController implements Initializable, Observer {
 
         FileInputStream input = null;
         try {
-            input = new FileInputStream("./Resources/Images/pool.png");
+            input = new FileInputStream("./src/Resources/Images/pool.png");
         } catch (FileNotFoundException e) {
             System.out.println("There is no back image file");
         }
@@ -146,33 +152,25 @@ public class MyViewController implements Initializable, Observer {
     public void generateMaze(ActionEvent actionEvent) {
 
         showSolution = false;
-        rows = Integer.valueOf(textField_rows.getText());
-        cols = Integer.valueOf(textField_cols.getText());
-        if (rows <=  1 || cols <= 1 || rows > 1000 || cols > 1000)
+        try {
+            rows = Integer.valueOf(textField_rows.getText());
+            cols = Integer.valueOf(textField_cols.getText());
+            if (rows <= 1 || cols <= 1 || rows > 1000 || cols > 1000) {
+                Alert alertGenerate = new Alert(Alert.AlertType.WARNING);
+                alertGenerate.setContentText("Invalid Input");
+                alertGenerate.show();
+            } else {
+                viewModel.generateMaze(rows, cols);
+            }
+        }
+        catch (Exception e)
         {
             Alert alertGenerate = new Alert(Alert.AlertType.WARNING);
             alertGenerate.setContentText("Invalid Input");
             alertGenerate.show();
         }
-        else
-        {
-            viewModel.generateMaze(rows,cols);
-        }
-
         playBackgroundMusic();
 
-
-//        if(viewModel == null)
-//        {
-//            viewModel = new MyViewModel();
-//        }
-//        if (mazeDisplayer == null)
-//        {
-//            mazeDisplayer = new MazeDisplayer();
-//        }
-//        Maze maze = viewModel.generateMaze(rows,cols);
-//        mazeDisplayer.drawMaze(maze);
-//        setPlayerPosition(maze.getStartPosition().getRowIndex(), maze.getStartPosition().getColumnIndex());
     }
 
     public void solveMaze(ActionEvent actionEvent) {
@@ -183,7 +181,7 @@ public class MyViewController implements Initializable, Observer {
             viewModel.solveMaze();        }
         else {
             Alert alertSolve = new Alert(Alert.AlertType.WARNING);
-            alertSolve.setContentText("You need generate maze first");
+            alertSolve.setContentText("You need to generate a maze first");
             alertSolve.show();
         }
 
@@ -201,7 +199,8 @@ public class MyViewController implements Initializable, Observer {
 
     }
 
-    public void mouseClicked(MouseEvent mouseEvent) {
+    public void mouseClicked(MouseEvent mouseEvent)
+    {
         mazeDisplayer.requestFocus();
     }
 
@@ -274,7 +273,17 @@ public class MyViewController implements Initializable, Observer {
     private void mazeGenerated()
     {
         mazeDisplayer.drawMaze(viewModel.getMaze());
-        //setPlayerPosition(viewModel.getMaze().getStartPosition().getRowIndex(), viewModel.getMaze().getStartPosition().getColumnIndex());
+    }
+    public void exitGame()
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            stopServers();
+            System.exit(0);
+        }
     }
 
     public void stopServers() {
@@ -317,5 +326,26 @@ public class MyViewController implements Initializable, Observer {
 
     public void newFile(ActionEvent actionEvent) {
         generateMaze(actionEvent);
+    }
+
+    public void openProperties() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Properties.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent, 300, 200);
+        Stage stage = new Stage();
+        stage.setTitle("Manage properties");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+    public void openAbout() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("About.fxml"));
+        Parent parent = fxmlLoader.load();
+        Scene scene = new Scene(parent, 300, 200);
+        Stage stage = new Stage();
+        stage.setTitle("About Us");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

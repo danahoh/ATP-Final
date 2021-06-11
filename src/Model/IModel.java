@@ -26,4 +26,10 @@ public interface IModel {
     boolean loadFile(String name);
 
     void removeSolution();
+//
+//    void saveProperties(String selectedSearch, String selectedGenerate);
+//
+//    Object getSearchAlgorithm();
+//
+//    Object getGenerateAlgorithm();
 }

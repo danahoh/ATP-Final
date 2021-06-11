@@ -28,7 +28,7 @@ public class StartStageController {
 
         FileInputStream input = null;
         try {
-            input = new FileInputStream("Resources/Images/LOGO.png");
+            input = new FileInputStream("src/Resources/Images/LOGO.png");
         } catch (FileNotFoundException e) {
             System.out.println("There is no start image file");
         }

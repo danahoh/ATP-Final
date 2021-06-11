@@ -95,6 +95,18 @@ public class MyViewModel extends Observable implements Observer {
     public void removeSolution() {
         model.removeSolution();
     }
+//
+//    public Object getSearchAlgorithm() {
+//        return model.getSearchAlgorithm();
+//    }
+//
+//    public void saveProperties(String selectedSearch, String selectedGenerate) {
+//        model.saveProperties(selectedSearch,selectedGenerate);
+//    }
+//
+//    public Object getGenerateAlgorithm() {
+//        return model.getGenerateAlgorithm();
+//    }
 }
 
 
