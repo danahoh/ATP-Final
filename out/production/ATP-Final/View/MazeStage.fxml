@@ -43,11 +43,7 @@
                     <TextField fx:id="textField_rows" prefHeight="26.0" prefWidth="23.0" text="10" GridPane.columnIndex="3" />
                     <TextField fx:id="textField_cols" text="10" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     <Button onAction="#generateMaze" prefHeight="25.0" prefWidth="167.0" text="Generate Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                    <Button cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Solve Maze" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-<!--                    <Label text="Player Row = " GridPane.rowIndex="4" />-->
-<!--                    <Label text="Player Col = " GridPane.rowIndex="5" />-->
-<!--                    <Label fx:id="playerRow" GridPane.columnIndex="1" GridPane.rowIndex="4" />-->
-<!--                    <Label fx:id="playerCol" GridPane.columnIndex="1" GridPane.rowIndex="5" />-->
+                    <Button fx:id="solutionButton" cancelButton="true" onAction="#solveMaze" prefHeight="25.0" prefWidth="167.0" text="Show Solution" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                     <ToggleButton fx:id="toggleMusic" minWidth="33.0" onAction="#toggleMusic" prefHeight="30" prefWidth="33.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="92.0" text="Music:" textAlignment="CENTER" GridPane.rowIndex="5" />
                 </GridPane>

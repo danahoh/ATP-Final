@@ -214,7 +214,7 @@ public class MazeDisplayer extends Canvas {
         } catch (FileNotFoundException e) {
             System.out.println("There is no goal image file");
         }
-        for(int i = 0; i < path.size(); ++i) {
+        for(int i = 0; i < path.size()-1; ++i) {
             MazeState mState = (MazeState) path.get(i);
             Position pos = mState.getState();
 

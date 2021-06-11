@@ -28,18 +28,18 @@ public class StartStageController {
 
         FileInputStream input = null;
         try {
-            input = new FileInputStream("src/Resources/Images/LOGO.png");
+            input = new FileInputStream("src/Resources/Images/Start.png");
         } catch (FileNotFoundException e) {
             System.out.println("There is no start image file");
         }
-        Image image = new Image(input);
-        BackgroundImage backgroundimage = new BackgroundImage(image,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT);
-        Background background = new Background(backgroundimage);
-        startPane.setBackground(background);
+//        Image image = new Image(input);
+//        BackgroundImage backgroundimage = new BackgroundImage(image,
+//                BackgroundRepeat.NO_REPEAT,
+//                BackgroundRepeat.NO_REPEAT,
+//                BackgroundPosition.CENTER,
+//                BackgroundSize.DEFAULT);
+//        Background background = new Background(backgroundimage);
+//        startPane.setBackground(background);
 
     }
     public void setPrimaryStage(Stage primaryStage) {

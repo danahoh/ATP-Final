@@ -50,6 +50,7 @@ public class MyViewController implements Initializable, Observer {
     public ScrollPane scrollPane;
     public ToggleButton toggleMusic;
     double currentZoomFactor = 1;
+    public Button solutionButton;
     @FXML
     public GraphicsContext gc;
     public MazeDisplayer mazeDisplayer;
@@ -161,6 +162,7 @@ public class MyViewController implements Initializable, Observer {
     }
     public void generateMaze(ActionEvent actionEvent) {
 
+        solutionButton.setText("Show Solution");
         showSolution = false;
         try {
             rows = Integer.valueOf(textField_rows.getText());
@@ -187,16 +189,26 @@ public class MyViewController implements Initializable, Observer {
 
     public void solveMaze(ActionEvent actionEvent) {
 
-        if(viewModel.getMaze()!=null)
+        if(!showSolution)
         {
-            showSolution = true;
-            viewModel.solveMaze();        }
-        else {
-            Alert alertSolve = new Alert(Alert.AlertType.WARNING);
-            alertSolve.setContentText("You need to generate a maze first");
-            alertSolve.show();
-        }
+            try {
+                viewModel.solveMaze();
+                solutionButton.setText("Hide Solution");
+                showSolution = true;
 
+            }
+            catch (Exception e)
+            {
+                Alert alertSolve = new Alert(Alert.AlertType.WARNING);
+                alertSolve.setContentText("You need to generate a maze first");
+                alertSolve.show();
+            }
+        }
+        else {
+            this.viewModel.removeSolution();
+            solutionButton.setText("Show Solution");
+            showSolution = false;
+        }
     }
 
     public void keyPressed(KeyEvent keyEvent) {
@@ -270,7 +282,8 @@ public class MyViewController implements Initializable, Observer {
 
     public void openVideo() throws IOException {
 
-        videoPlayer.setAutoPlay(true);
+       // videoPlayer.setAutoPlay(true);
+        videoPlayer.play();
         videoPlayer.setMute(true);
         videoPlayer.setOnEndOfMedia(() -> videoPlayer.seek(Duration.ZERO));
         Group root = new Group();
@@ -297,7 +310,7 @@ public class MyViewController implements Initializable, Observer {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == newGame)
                 {
-                    videoPlayer.stop();
+                    videoPlayer.pause();
                     viewModel.setGameOver(false);
                     generateMaze(new ActionEvent());
                     stage.close();
