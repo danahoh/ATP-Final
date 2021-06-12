@@ -120,21 +120,21 @@ public class MyViewController implements Initializable, Observer {
 //        mainPane.widthProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setWidth(newValue.doubleValue()));
 //        mainPane.heightProperty().addListener((obs, oldVal, newValue) -> mazeDisplayer.setHeight(newValue.doubleValue()));
 
-
-        FileInputStream input = null;
-        try {
-            input = new FileInputStream("./src/Resources/Images/pool.png");
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no back image file");
-        }
-        Image image = new Image(input);
-        BackgroundImage backgroundimage = new BackgroundImage(image,
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.REPEAT,
-                BackgroundPosition.CENTER,
-                BackgroundSize.DEFAULT);
-        Background background = new Background(backgroundimage);
-        mainPane.setBackground(background);
+//
+//        FileInputStream input = null;
+//        try {
+//            input = new FileInputStream("./src/Resources/Images/pool.png");
+//        } catch (FileNotFoundException e) {
+//            System.out.println("There is no back image file");
+//        }
+//        Image image = new Image(input);
+//        BackgroundImage backgroundimage = new BackgroundImage(image,
+//                BackgroundRepeat.REPEAT,
+//                BackgroundRepeat.REPEAT,
+//                BackgroundPosition.CENTER,
+//                BackgroundSize.DEFAULT);
+//        Background background = new Background(backgroundimage);
+//        mainPane.setBackground(background);
 
     }
     private void playBackgroundMusic() {

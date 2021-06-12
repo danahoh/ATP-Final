@@ -69,17 +69,21 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#openProperties" text="Properties" />
                             </items>
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
-                            </items>
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openHelp" text="Help" />
-                            </items>
                         </Menu>
 
                         <Menu mnemonicParsing="false" text="Exit">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#exitGame" text="Exit Game" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openHelp" text="Help" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="About">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openAbout" text="About" />
                             </items>
                         </Menu>
                     </menus>
@@ -90,7 +94,7 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0">
+              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0" style="-fx-background-image: url(./Resources/Images/pool1.png); -fx-background-size: cover;">
                   <children>
                       <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./src/Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./src/Resources/Images/danavit.png" imageFileNameWall="./src/Resources/Images/sandTree.png" imageFileNameSol="./src/Resources/Images/ball1.png" onKeyPressed="#keyPressed" onMouseDragged="#mouseDragged" width="${mainPane.width}" />
                   </children>
