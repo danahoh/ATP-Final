@@ -96,6 +96,10 @@ public class MyViewModel extends Observable implements Observer {
     public void removeSolution() {
         model.removeSolution();
     }
+
+    public void setShowSolution(boolean b) {
+        model.setShowSolution(b);
+    }
 //
 //    public Object getSearchAlgorithm() {
 //        return model.getSearchAlgorithm();

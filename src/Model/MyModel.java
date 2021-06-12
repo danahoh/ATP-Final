@@ -8,6 +8,7 @@ import Server.ServerStrategySolveSearchProblem;
 import algorithms.mazeGenerators.Maze;
 import Server.ServerStrategyGenerateMaze;
 import Client.IClientStrategy;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public class MyModel extends Observable implements IModel{
     private Server mazeGeneratorServer;
     private Server solveMazeServer;
     private boolean gameOver = false;
-    //private Configurations conf = new Configurations();
+    private boolean showSolution = false;
 
 
 
@@ -78,6 +79,10 @@ public class MyModel extends Observable implements IModel{
         }
         this.playerRow = row;
         this.playerCol = col;
+        if(solution !=  null && showSolution)
+        {
+            solveMaze();
+        }
         setChanged();
         notifyObservers("player moved");
     }
@@ -163,6 +168,8 @@ public class MyModel extends Observable implements IModel{
     @Override
     public void solveMaze() {
         //solve the maze
+        Position playerPos = new Position(playerRow,playerCol);
+        maze.setStartPosition(playerPos);
         CommunicateWithServer_SolveSearchProblem(this.maze);
         setChanged();
         notifyObservers("maze solved");
@@ -277,6 +284,11 @@ public class MyModel extends Observable implements IModel{
         setChanged();
         notifyObservers("hide solution");
 
+    }
+
+    @Override
+    public void setShowSolution(boolean b) {
+        showSolution = b;
     }
 
 }

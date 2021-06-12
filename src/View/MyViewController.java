@@ -195,6 +195,7 @@ public class MyViewController implements Initializable, Observer {
                 viewModel.solveMaze();
                 solutionButton.setText("Hide Solution");
                 showSolution = true;
+                viewModel.setShowSolution(true);
 
             }
             catch (Exception e)
@@ -208,6 +209,8 @@ public class MyViewController implements Initializable, Observer {
             this.viewModel.removeSolution();
             solutionButton.setText("Show Solution");
             showSolution = false;
+            viewModel.setShowSolution(false);
+
         }
     }
 
@@ -351,6 +354,7 @@ public class MyViewController implements Initializable, Observer {
 
     private void hideSolution()
     {
+        viewModel.setShowSolution(false);
         mazeDisplayer.setShowSolution(false);
     }
 

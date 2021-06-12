@@ -26,6 +26,8 @@ public interface IModel {
     boolean loadFile(String name);
 
     void removeSolution();
+
+    void setShowSolution(boolean b);
 //
 //    void saveProperties(String selectedSearch, String selectedGenerate);
 //
