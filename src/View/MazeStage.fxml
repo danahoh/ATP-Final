@@ -94,9 +94,9 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0" style="-fx-background-image: url(./Resources/Images/pool1.png); -fx-background-size: cover;">
+              <AnchorPane fx:id="mainPane" onScroll="#zoomIn" prefHeight="385.0" prefWidth="414.0" style="-fx-background-image: url(Images/pool1.png); -fx-background-size: cover;">
                   <children>
-                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./src/Resources/Images/funjoyaLogo.png" imageFileNamePlayer="./src/Resources/Images/danavit.png" imageFileNameWall="./src/Resources/Images/sandTree.png" imageFileNameSol="./src/Resources/Images/ball1.png" onKeyPressed="#keyPressed" onMouseDragged="#mouseDragged" width="${mainPane.width}" />
+                      <MazeDisplayer fx:id="mazeDisplayer" height="${mainPane.height}" imageFileNameGoal="./resources/Images/funjoyaLogo.png" imageFileNamePlayer="./resources/Images/danavit.png" imageFileNameWall="./resources/Images/sandTree.png" imageFileNameSol="./resources/Images/ball1.png" onKeyPressed="#keyPressed" onMouseDragged="#mouseDragged" width="${mainPane.width}" />
                   </children>
                   <padding>
                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

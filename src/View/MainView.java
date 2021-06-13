@@ -43,7 +43,7 @@ public class MainView extends Application {
 //       primaryStage.setScene(scene);
 //       primaryStage.show();
         primaryStage.setTitle("Funjoya");
-        primaryStage.getIcons().add(new Image("./Resources/Images/icon.png"));
+        //primaryStage.getIcons().add(new Image("./resources/Images/icon.png"));
         FXMLLoader menuFXML = new FXMLLoader(getClass().getResource("StartStage.fxml"));
         FXMLLoader viewFXML = new FXMLLoader(getClass().getResource("MazeStage.fxml"));
         //----------------------//

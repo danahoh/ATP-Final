@@ -27,11 +27,11 @@ public class StartStageController {
         this.scene = scene;
 
         FileInputStream input = null;
-        try {
-            input = new FileInputStream("src/Resources/Images/Start.png");
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no start image file");
-        }
+//        try {
+            //input = new FileInputStream("../resources/Images/Start.png");
+//        } catch (FileNotFoundException e) {
+//            System.out.println("There is no start image file");
+//        }
 //        Image image = new Image(input);
 //        BackgroundImage backgroundimage = new BackgroundImage(image,
 //                BackgroundRepeat.NO_REPEAT,

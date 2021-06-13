@@ -54,27 +54,21 @@ public class MyViewController implements Initializable, Observer {
     @FXML
     public GraphicsContext gc;
     public MazeDisplayer mazeDisplayer;
-    public Label playerRow;
-    public Label playerCol;
     public int rows = 0;
     public int cols = 0;
     boolean MusicOn = true;
     boolean showSolution = false;
-    boolean moveWithMouse = false;
-
-
-
 
     StringProperty updatePlayerRow = new SimpleStringProperty();
     StringProperty updatePlayerCol = new SimpleStringProperty();
 
-    String background = new File("./src/Resources/music/Background.mp3").toURI().toString();
+    String background = new File("./resources/music/Background.mp3").toURI().toString();
     MediaPlayer backgroundPlayer = new MediaPlayer(new Media(background));
 
-    String win = new File("./src/Resources/music/FeelSoClose.mp3").toURI().toString();
+    String win = new File("./resources/music/FeelSoClose.mp3").toURI().toString();
     MediaPlayer winningPlayer = new MediaPlayer(new Media(win));
 
-    String video = new File("./src/Resources/music/funjoya.mp4").toURI().toString();
+    String video = new File("./resources/music/funjoya.mp4").toURI().toString();
     MediaPlayer videoPlayer = new MediaPlayer(new Media(video));
     MediaView mediaView = new MediaView(videoPlayer);
 
@@ -149,7 +143,6 @@ public class MyViewController implements Initializable, Observer {
         winningPlayer.play();
 
     }
-
     public void toggleMusic() {
         MusicOn = !MusicOn;
         if (MusicOn) {
@@ -289,9 +282,11 @@ public class MyViewController implements Initializable, Observer {
         videoPlayer.play();
         videoPlayer.setMute(true);
         videoPlayer.setOnEndOfMedia(() -> videoPlayer.seek(Duration.ZERO));
+        int w = videoPlayer.getMedia().getWidth();
+        int h = videoPlayer.getMedia().getHeight();
         Group root = new Group();
         root.getChildren().add(mediaView);
-        Scene scene = new Scene(root, 1000, 700);
+        Scene scene = new Scene(root, w, h);
         Stage stage = new Stage();
         stage.setTitle("You Won!!!");
         stage.initModality(Modality.APPLICATION_MODAL);
