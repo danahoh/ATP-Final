@@ -1,0 +1,2 @@
+2021-06-13 18:57:30.839 [JavaFX Application Thread] INFO  Model.MyModel - generated maze in size 10*10
+2021-06-13 18:57:32.149 [JavaFX Application Thread] INFO  Model.MyModel - maze solved with algorithem :BestSearchAlgorithm
