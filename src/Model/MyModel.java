@@ -81,7 +81,7 @@ public class MyModel extends Observable implements IModel{
         this.playerCol = col;
         if(solution !=  null && showSolution)
         {
-            solveMaze();
+            solveMazeToEat();
         }
         setChanged();
         notifyObservers("player moved");
@@ -173,6 +173,13 @@ public class MyModel extends Observable implements IModel{
         CommunicateWithServer_SolveSearchProblem(this.maze);
         setChanged();
         notifyObservers("maze solved");
+
+    }
+    public void solveMazeToEat() {
+        //solve the maze
+        Position playerPos = new Position(playerRow,playerCol);
+        maze.setStartPosition(playerPos);
+        CommunicateWithServer_SolveSearchProblem(this.maze);
 
     }
 

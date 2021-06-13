@@ -364,7 +364,10 @@ public class MyViewController implements Initializable, Observer {
     }
 
     private void playerMoved() {
+
         setPlayerPosition(viewModel.getPlayerRow(), viewModel.getPlayerCol());
+        mazeDisplayer.setSolution(viewModel.getSolution());
+
     }
 
     private void mazeSolved()
