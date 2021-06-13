@@ -53,24 +53,15 @@
                         <Insets right="30.0" />
                     </padding>
                 </HBox>
-<!--                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">-->
-<!--                    <children>-->
-<!--                        <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Play with rival:" />-->
-<!--                        <CheckBox fx:id="playWithRival"></CheckBox>-->
-<!--                    </children>-->
-<!--                    <padding>-->
-<!--                        <Insets right="30.0" />-->
-<!--                    </padding>-->
-<!--                </HBox>-->
-<!--                <HBox alignment="CENTER_RIGHT">-->
-<!--                    <children>-->
-<!--                        <Label text="thread pool size:" />-->
-<!--                        <TextField fx:id="poolSizeTxt" disable="true"/>-->
-<!--                    </children>-->
-<!--                    <padding>-->
-<!--                        <Insets right="30.0" />-->
-<!--                    </padding>-->
-<!--                </HBox>-->
+                <HBox alignment="CENTER_RIGHT">
+                    <children>
+                        <Label text="thread pool size:" />
+                        <TextField fx:id="poolSizeTxt"/>
+                    </children>
+                    <padding>
+                        <Insets right="30.0" />
+                    </padding>
+                </HBox>
                 <HBox alignment="CENTER_RIGHT">
                     <children>
                         <Button mnemonicParsing="false" onAction="#saveProperties" text="Save" />

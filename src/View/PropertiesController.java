@@ -26,12 +26,17 @@ public class PropertiesController implements Initializable {
     @FXML
     private ChoiceBox<String> generateAlgorithm;
 
+    @FXML
+    private TextField poolSizeTxt;
+
+
 
     @FXML
     void saveProperties(ActionEvent event) {
 
         Configurations.getConf().setGeneratingAlgo(generateAlgorithm.getValue());
         Configurations.getConf().setSearchingAlgo(searchAlgorithm.getValue());
+        Configurations.getConf().setNumOfThreads(poolSizeTxt.getText());
         closeStage(event);
     }
 //
@@ -45,8 +50,11 @@ public class PropertiesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         generateAlgorithm.setValue(Configurations.getConf().getGeneratingAlgo());
         searchAlgorithm.setValue(Configurations.getConf().getSearchingAlgo());
+        poolSizeTxt.setText(String.valueOf(Configurations.getConf().getNumOfThreads()));
+
         try{
             Properties properties = new Properties();
             properties.load(new FileInputStream("./resources/config.properties"));
